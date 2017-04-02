@@ -1,0 +1,26 @@
+{
+  "builders": [
+          {
+            "type":"amazon-ebs",
+            "region":"us-east-1",
+            "source_ami": "puppetmaster",
+            "instance_type":"t2.micro",
+            "ssh_username": "centos",
+            "ami_name" "MiddleTier-{{isotime | clean_ami_name}}"
+            "ami_description": "Amazing AMI",
+            "tags":{
+                "role":"midtier"
+            },
+            "run_tags":{
+                    "role":"buildSystem"
+            }
+
+          }
+  ],
+  "provisioners": [
+
+  ],
+  "post-processors": [
+
+  ]
+}

@@ -1,0 +1,41 @@
+Packer:-
+
+Immutable infrastructure:-
+ - What:- Unchangable over time, or unable to be changed.
+ - Why :- Mitten vs Kettle terminology. Easy to reproduce, ready to use/work out of the box, Low maintainance cost/low stress, Expandable, easy to scale
+ - How :- Packer use Amazon images (AMI), Works on all OS including windows,
+        - A packer template (json file)
+        - builders
+        - provisioners
+        -post-processors
+
+Builders:-
+  - Generate your image
+  - provider specific
+  - multiple builders -- cross-provider builds
+    - type : amazon-ebs
+
+Provisioners:-
+  - customize your image
+  - scripts or confuguration management (ansible/chef/puppet)
+  - can be builder specific
+    - type : shell
+    - script: myservicescript.sh
+    - only: [myserverlistname-AWS] # Where to run this script, attach to specific builder
+  - Packer takes care of uploading script to image machine from local machine for running it.
+
+Post-processrors:-
+  - Put on finishing touches to image
+  - often use to Integrate with other services such as docker
+  - Key to docker conversion, creating, tagging, uploading docker images to registry
+    - type: compress  # Useful for virtualbox/vmware
+    - output: Myserver-virtualbox.tar.gz
+    - only: ["myserverlistname-virtualbox"]  # Relate to specific builder
+
+
+packer command line options:-
+packer build
+  -debug
+  -force
+
+packer build -debug template.packer
